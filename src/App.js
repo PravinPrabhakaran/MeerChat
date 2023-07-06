@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
-import TextArea from './TextArea'
+import Chat from './Chat'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [messages, setMessages]  = useState([]);
   
-  const handleInputChange = (event) => {
-    setMessage(event.target.value);
+
+  
+  const promptChange = (event) => {
+    setPrompt(event.target.value);
   };
 
-  const handleClick = () => {
-    console.log(message);
-    setMessage(""); // clear the message after logging it or using it
+
+
+  const submitPrompt = () => {
+    if (prompt == '') {
+      return;
+    }
+    const newMessage = [...messages, prompt]
+    console.log(newMessage);
+    setMessages(newMessage)
+    setPrompt(""); // clear the message after logging it or using it
   };
 
   return (
@@ -22,19 +32,25 @@ function App() {
     </Row>
     <Form>
       <Row>
-        <TextArea />
+        <Container>
+          {messages.map((message) => (
+            <Chat userPrompt={message}/>
+      ))}
+
+        </Container>
       </Row>
       <Row>
         <Col>
-          <Form.Control type="text" placeholder="Type your message" value={message} onChange={handleInputChange}/>
+          <Form.Control type="text" placeholder="Type your message" value={prompt} onChange={promptChange}/>
         </Col>
         <Col xs="auto">      
-          <Button onClick={handleClick} variant="primary" type="button">Send</Button>
+          <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
         </Col>
       </Row>
     </Form>
   </Container>
     );
-  }
+  
+}
 
 export default App;
