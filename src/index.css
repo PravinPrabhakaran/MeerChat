@@ -15,3 +15,7 @@ code {
 h1 {
   text-align: center;
 }
+
+.questionForm {
+  margin-top: 2.5em;
+}

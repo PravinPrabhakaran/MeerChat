@@ -12,6 +12,17 @@ function App() {
         <Row>
           <textArea />
         </Row>
+        
+        <Form className="d-flex">
+          <Form.Group>
+          <Form.Control type="text" placeholder="Type your message" />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">Send</Button>
+
+        </Form>
+
+
       </Container>
     );
   }
