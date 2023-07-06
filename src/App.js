@@ -4,53 +4,47 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [prompt, setPrompt] = useState("");
-  const [messages, setMessages]  = useState([]);
+
+  const [messages, setMessages]  = useState([["Asdasdoaskdoaskdasd", false]]);
   
-
-  
-  const promptChange = (event) => {
-    setPrompt(event.target.value);
-  };
-
-
-
   const submitPrompt = () => {
+    var prompt = document.getElementsByName("prompt")[0].value 
+    console.log(prompt)
     if (prompt == '') {
       return;
     }
-    const newMessage = [...messages, prompt]
-    console.log(newMessage);
+
+    const newMessage = [...messages, [prompt,true]]
     setMessages(newMessage)
-    setPrompt(""); // clear the message after logging it or using it
+    
+
+    document.getElementsByName("prompt")[0].value = ""
+    // clear the message after logging it or using it
   };
 
+  
   return (
     <Container>
-    <Row>
-      <h1>CTM-GPT</h1>
-    </Row>
-    <Form>
       <Row>
+        <h1>CTM-GPT</h1>
+      </Row>
+      <Form>
         <Container>
-          {messages.map((message) => (
-            <Chat userPrompt={message}/>
-      ))}
-
+          {messages.map((message, key) => (
+            <Chat userPrompt={message[0]} user={message[1]} />
+          ))}
         </Container>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Control type="text" placeholder="Type your message" value={prompt} onChange={promptChange}/>
-        </Col>
-        <Col xs="auto">      
-          <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
-        </Col>
-      </Row>
-    </Form>
-  </Container>
-    );
-  
-}
+        <Row>
+          <Col>
+            <Form.Control name="prompt" type="text" placeholder="Type your message"/>
+          </Col>
+          <Col xs="auto">
+            <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
+          </Col>
+        </Row>
+      </Form>
+    </Container>
+  );
 
+}
 export default App;
