@@ -7,15 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function textArea() {
     return (
-        <Container>
-          <Row>
-            <Col>
-              <h1>CTM-GPT</h1>
-              <textArea />
-              
-            </Col>
-          </Row>
-        </Container>
-      );
+        <Container fluid className="h-100">
+
+      </Container>
     }
   
