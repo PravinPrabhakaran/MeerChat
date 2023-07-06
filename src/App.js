@@ -6,27 +6,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-      <Container>
-        <Row>
-            <h1>CTM-GPT</h1>
-        </Row>
-
-        
-        <Form>
-
-          <Row>
-            <TextArea />
-          </Row>
-
-        
+    <Container>
+    <Row>
+      <h1>CTM-GPT</h1>
+    </Row>
+    <Form>
+      <Row>
+        <TextArea />
+      </Row>
+      <Row>
+        <Col>
           <Form.Control type="text" placeholder="Type your message" />
-            
+        </Col>
+        <Col xs="auto">      
           <Button variant="primary" type="submit">Send</Button>
-          
-        </Form>
-
-
-      </Container>
+        </Col>
+      </Row>
+    </Form>
+  </Container>
     );
   }
 
