@@ -10,13 +10,19 @@ function App() {
         <Row>
             <h1>CTM-GPT</h1>
         </Row>
-        <Row>
-          <TextArea />
-        </Row>
+
         
-        <Form className="d-flex">
+        <Form>
+
+          <Row>
+            <TextArea />
+          </Row>
+
+        
           <Form.Control type="text" placeholder="Type your message" />
+            
           <Button variant="primary" type="submit">Send</Button>
+          
         </Form>
 
 
