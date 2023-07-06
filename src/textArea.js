@@ -5,10 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-function textArea() {
+function TextArea() {
     return (
-        <Container fluid className="h-100">
+        <div>
+            <h1>Hello</h1>
+        </div>
+    )    
+}
 
-      </Container>
-    }
-  
+export default TextArea;

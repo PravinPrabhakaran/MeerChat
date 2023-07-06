@@ -1,4 +1,5 @@
 import React from 'react';
+import TextArea from './TextArea'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,7 +11,7 @@ function App() {
             <h1>CTM-GPT</h1>
         </Row>
         <Row>
-          <textArea />
+          <TextArea />
         </Row>
         
         <Form className="d-flex">
