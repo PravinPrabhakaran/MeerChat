@@ -49,7 +49,7 @@ function App() {
     const newMessage = [...messages, [prompt,true]]
     setMessages(newMessage)
 
-    gptResponse(prompt)
+    //gptResponse(prompt)
 
 
     document.getElementsByName("prompt")[0].value = ""
