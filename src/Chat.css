@@ -1,0 +1,19 @@
+.user-message,
+.bot-message {
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.20);
+    padding: 10px;
+    margin: 10px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.user-message {
+    background-color: #0A2765;
+    color: white;
+}
+
+.bot-message {
+    background-color: #CC8300;
+    color: white;
+}
