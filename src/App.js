@@ -5,18 +5,49 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  
   const [messages, setMessages]  = useState([["Asdasdoaskdoaskdasd", false]]);
   
+
+  const gptResponse = async (prompt) => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({prompt}),
+      })
+      
+      if (!response.ok) {
+        console.error('Error sending message');
+      }
+  
+      const data = await response.json();
+      const reply = data.reply;
+  
+      const newMessage = [...messages, [reply, false]]
+      setMessages(newMessage)
+    }
+  
+  catch (error) {
+    console.error(error)
+  }
+  }   
+
+
+
   const submitPrompt = () => {
     var prompt = document.getElementsByName("prompt")[0].value 
-    console.log(prompt)
     if (prompt == '') {
       return;
     }
 
     const newMessage = [...messages, [prompt,true]]
     setMessages(newMessage)
-    
+
+    gptResponse(prompt)
+
 
     document.getElementsByName("prompt")[0].value = ""
     // clear the message after logging it or using it
@@ -46,5 +77,13 @@ function App() {
     </Container>
   );
 
+ 
+  
+
 }
+
+
+
+
+
 export default App;
