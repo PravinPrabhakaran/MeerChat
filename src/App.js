@@ -77,7 +77,7 @@ function App() {
     <Row noGutters className="input-row"> 
       <Col></Col>
       <Col xs={6}>
-        <Form.Control name="prompt" type="text" placeholder="Type your message"/>
+        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off"/>
       </Col>
       <Col xs="auto">
         <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
