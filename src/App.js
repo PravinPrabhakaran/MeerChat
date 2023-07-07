@@ -10,6 +10,9 @@ function App() {
 
   const [messages, setMessages]  = useState([["Hi", false]]);
   
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
 
   const gptResponse = async (prompt) => {
     try {
@@ -27,9 +30,8 @@ function App() {
   
       const data = await response.json();
       const reply = data.reply;
-  
-      const newMessage = [...messages, [reply, false]]
-      setMessages(newMessage)
+
+      setMessages(messages => [...messages, [reply, false]]);
     }
   
   catch (error) {
@@ -38,18 +40,16 @@ function App() {
   }   
 
 
-
   const submitPrompt = () => {
     var prompt = document.getElementsByName("prompt")[0].value 
-    console.log(prompt)
+
     if (prompt === '') {
       return;
     }
+    
 
-    const newMessage = [...messages, [prompt,true]]
-    setMessages(newMessage)
-
-    //gptResponse(prompt)
+    setMessages(messages => [...messages, [prompt, true]]);
+    gptResponse(prompt)
 
 
     document.getElementsByName("prompt")[0].value = ""

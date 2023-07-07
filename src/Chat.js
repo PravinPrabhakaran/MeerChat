@@ -5,7 +5,7 @@ import './Chat.css';
 function Chat(props) {
     
     var person;
-    console.log(props)
+    
     if (props.user === true) {
         person = "Human :"
     }
