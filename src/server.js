@@ -1,6 +1,8 @@
 
 //Imports express.js
 const express = require('express')
+const path = require('path');
+const fs = require('fs');
 
 //Makes an instance of the express application
 const app = express();
@@ -47,10 +49,45 @@ app.post('/api/chat', async(request, response) => {
     }
 });
 
+app.get('/api/files/:name', (req, res) => {
+    const { name } = req.params;
+    console.log(name)
+    console.log(__dirname)
+    const folderPath = path.join(__dirname, 'policies', name);
+    console.log(folderPath)
+  
+    fs.readdir(folderPath, (err, files) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Failed to read folder' });
+      }
+  
+      const textFiles = files.filter(file => path.extname(file) === '.txt');
+      const fileData = [];
+  
+      textFiles.forEach(file => {
+        const filePath = path.join(folderPath, file);
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        fileData.push({ fileName: file, content: fileContent });
+      });
+  
+      res.json({ files: fileData });
+    });
+  });
+
+
+
+
 const port = 5000;
 app.listen(port, ()=> {
     console.log(`Server is running on port ${port}`)
 })
+
+
+
+
+
+
 
 app.get('/api/chat', (req, res) => {
     res.send('Server is reachable!');

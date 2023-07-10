@@ -8,12 +8,11 @@ import AlekImage from './alek.png';
 
 function App() {
 
-  const [messages, setMessages]  = useState([
-    {role:"user", content:"Where was it played?"},
-    {role:"assistant", content:"Wembley Stadium"}
-  ]);
-  
+  const [messages, setMessages]  = useState([]);
+  var [initial, setInitial] = useState(0)
   var [respond, setRespond] = useState(false)
+  var [sections, setSections] = useState([]);
+
 
   useEffect(()=> {
     if (respond == true) {
@@ -23,7 +22,14 @@ function App() {
   }, [respond])
 
 
-
+  const initialPhase = () => {
+    
+    if (initial == 1) {
+      return (
+        <Chat userPrompt={sections} user={"system"}/>
+      )
+    }
+  }
 
 
   const gptResponse = async () => {
@@ -62,6 +68,24 @@ function App() {
     if (prompt === '') {
       return;
     }
+
+    if (initial == 0) {
+      fetch('/api/files/' + prompt)
+        .then(response => response.json())
+        .then(data => {
+          setInitial(1)
+          setSections(data.files)
+        })
+        .catch(error => {
+          // Handle errors
+
+          console.error(error);
+        });
+      return
+    }
+    else if (initial == 1) {
+      return
+    }
     
     //messages.push({role:"user", content:prompt})
     setMessages(messages=>[...messages, {role:"user", content:prompt}]);
@@ -82,6 +106,8 @@ function App() {
       </div>
         <div className="messages-container">
           <Container>
+            <Chat userPrompt={"Enter the name of a provider"} user={"assistant"}/>
+        {initialPhase()}
         {messages.map((messageRecord) => (
             <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]}/>
         ))}
