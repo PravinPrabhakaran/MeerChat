@@ -14,7 +14,8 @@ app.use(express.json());
 app.post('/api/chat', async(request, response) => {
 
     try {
-        const message = request.body["prompt"]
+        console.log(request.body)
+        const messages = request.body
         const gptResponse = await fetch('https://api.openai.com/v1/chat/completions',{
             method:'POST',
             headers: {
@@ -28,7 +29,7 @@ app.post('/api/chat', async(request, response) => {
                         "role": "system",
                         "content": "You are DesignGPT helpful assistant graphics design chatbot"
                     },
-                    {role: "user", content: `${message}`}
+                    ...messages
                 ],
                 max_tokens: 100 //Determines response length
             })

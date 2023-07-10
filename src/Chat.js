@@ -6,14 +6,14 @@ function Chat(props) {
     
     var person;
     
-    if (props.user === true) {
+    if (props.user === "user") {
         person = "Human :"
     }
     else {
         person = "AI :"
     }
 
-    const messageClass = props.user ? "user-message" : "bot-message";
+    const messageClass = props.user == "user" ? "user-message" : "bot-message";
 
     return (
         <div className={messageClass}>

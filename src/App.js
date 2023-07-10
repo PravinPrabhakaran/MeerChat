@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chat from './Chat'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,30 +8,46 @@ import AlekImage from './alek.png';
 
 function App() {
 
-  const [messages, setMessages]  = useState([["Hi", false]]);
+  const [messages, setMessages]  = useState([
+    {role:"user", content:"Where was it played?"},
+    {role:"assistant", content:"Wembley Stadium"}
+  ]);
   
-  const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-  };
+  var [respond, setRespond] = useState(false)
 
-  const gptResponse = async (prompt) => {
+  useEffect(()=> {
+    if (respond == true) {
+      gptResponse()
+      setRespond(false)
+    }
+  }, [respond])
+
+
+
+
+
+  const gptResponse = async () => {
+    console.log(messages)
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type' : 'application/json'
         },
-        body: JSON.stringify({prompt}),
+        body: JSON.stringify(messages),
       })
       
       if (!response.ok) {
+        console.log(response)
         console.error('Error sending message');
       }
   
       const data = await response.json();
       const reply = data.reply;
 
-      setMessages(messages => [...messages, [reply, false]]);
+      setMessages(messages => [...messages, {role:"assistant", content:reply}]);
+
+
     }
   
   catch (error) {
@@ -47,10 +63,9 @@ function App() {
       return;
     }
     
-
-    setMessages(messages => [...messages, [prompt, true]]);
-    gptResponse(prompt)
-
+    //messages.push({role:"user", content:prompt})
+    setMessages(messages=>[...messages, {role:"user", content:prompt}]);
+    setRespond(true)
 
     document.getElementsByName("prompt")[0].value = ""
     // clear the message after logging it or using it
@@ -67,8 +82,8 @@ function App() {
       </div>
         <div className="messages-container">
           <Container>
-        {messages.map((message, key) => (
-            <Chat userPrompt={message[0]} user={message[1]} key={key}/>
+        {messages.map((messageRecord) => (
+            <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]}/>
         ))}
           </Container>
         </div>
