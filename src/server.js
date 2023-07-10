@@ -37,9 +37,8 @@ app.post('/api/chat', async(request, response) => {
             })
         })
     const data = await gptResponse.json();
-    //console.log(data)
     const reply = data.choices[0].message.content;
-    //console.log(reply)
+
     
     response.json({reply})
     }
@@ -51,10 +50,7 @@ app.post('/api/chat', async(request, response) => {
 
 app.get('/api/files/:name', (req, res) => {
     const { name } = req.params;
-    console.log(name)
-    console.log(__dirname)
     const folderPath = path.join(__dirname, 'policies', name);
-    console.log(folderPath)
   
     fs.readdir(folderPath, (err, files) => {
       if (err) {

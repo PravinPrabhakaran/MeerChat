@@ -14,24 +14,29 @@ function Chat(props) {
     }
 
 
+    var returnSection = (index) => {
+        return (e) => {
+            console.log(index);
+            e.preventDefault();
+            props.setContext(index);
+        };
+    };
+
     const messageClass = props.user == "user" ? "user-message" : "bot-message";
-    console.log(props.user)
     if (props.user == "system") {
         console.log(props.userPrompt)
         return (
             <div className={messageClass}>
                 <h1 style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{person} </h1>
-                {(props.userPrompt).map((section) => (
+                {(props.userPrompt).map((section, index) => (
                     <span>
-                    <a href="#" style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{section.fileName.slice(0,-4)}</a>
+                    <a href="#" onClick={returnSection(index)} style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{section.fileName.slice(0,-4)}</a>
                     <br></br>
                     </span>
                 ))}
             </div>
         )
     }
-
-    console.log(34343434)
 
     return (
         <div className={messageClass}>

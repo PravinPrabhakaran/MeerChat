@@ -12,6 +12,8 @@ function App() {
   var [initial, setInitial] = useState(0)
   var [respond, setRespond] = useState(false)
   var [sections, setSections] = useState([]);
+  var [currentContext, setCurrentContext] = useState(-1);
+  const [systemMessages, setSystemMessages] = useState(["Enter the name of a provider"]);
 
 
   useEffect(()=> {
@@ -21,19 +23,24 @@ function App() {
     }
   }, [respond])
 
+  var updateSectionContext = (index) => {
+    setCurrentContext(index)
+    setSystemMessages([...systemMessages, "Enter your question"])
+    setInitial(2)
+  }
+
 
   const initialPhase = () => {
     
     if (initial == 1) {
       return (
-        <Chat userPrompt={sections} user={"system"}/>
+        <Chat userPrompt={sections} user={"system"} setContext={updateSectionContext}/>
       )
     }
   }
 
 
   const gptResponse = async () => {
-    console.log(messages)
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -77,9 +84,9 @@ function App() {
           setSections(data.files)
         })
         .catch(error => {
-          // Handle errors
-
+          setSystemMessages([...systemMessages, "That is incorrect, please retry"])
           console.error(error);
+          return;
         });
       return
     }
@@ -95,6 +102,8 @@ function App() {
     // clear the message after logging it or using it
   };
 
+ 
+
   return (
     <Container>
       <Row>
@@ -106,7 +115,10 @@ function App() {
       </div>
         <div className="messages-container">
           <Container>
-            <Chat userPrompt={"Enter the name of a provider"} user={"assistant"}/>
+        {systemMessages.map((systemMsg) => (
+          <Chat userPrompt={systemMsg} user={"assistant"}/>
+        ))}
+            
         {initialPhase()}
         {messages.map((messageRecord) => (
             <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]}/>
