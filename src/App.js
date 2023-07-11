@@ -25,7 +25,7 @@ function App() {
 
   var updateSectionContext = (index) => {
     setCurrentContext(index)
-    setSystemMessages([...systemMessages, "Enter your question"])
+    setSystemMessages([...systemMessages, `You have selected ${sections[index].fileName.slice(0,-4)}, what would you like to discuss?`])
     setInitial(2)
   }
 
@@ -93,7 +93,14 @@ function App() {
     else if (initial == 1) {
       return
     }
+    else if (initial == 2) {
+      prompt = `${sections[currentContext].content}. Use the information provided above only when answering any questions you receive. ${prompt}` 
+      console.log(prompt)
+      setInitial(3)
+    }
     
+
+
     //messages.push({role:"user", content:prompt})
     setMessages(messages=>[...messages, {role:"user", content:prompt}]);
     setRespond(true)

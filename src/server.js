@@ -29,7 +29,7 @@ app.post('/api/chat', async(request, response) => {
                 messages:[
                     {
                         "role": "system",
-                        "content": "You are DesignGPT helpful assistant graphics design chatbot"
+                        "content": "You are Meerchat, a helpful assistant that helps consumers understand insurance policies"
                     },
                     ...messages
                 ],
