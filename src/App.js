@@ -58,7 +58,7 @@ function App() {
       const data = await response.json();
       const reply = data.reply;
 
-      setMessages(messages => [...messages, {role:"assistant", content:reply}]);
+      setMessages(messages => [...messages, {role:"assistant", content:reply, from:0}]);
 
 
     }
@@ -71,7 +71,7 @@ function App() {
 
   const submitPrompt = () => {
     var prompt = document.getElementsByName("prompt")[0].value 
-
+    var fromIndex = 0
     if (prompt === '') {
       return;
     }
@@ -94,7 +94,9 @@ function App() {
       return
     }
     else if (initial == 2) {
-      prompt = `${sections[currentContext].content}. Use the information provided above only when answering any questions you receive. ${prompt}` 
+      var temp = `${sections[currentContext].content}. Use the information provided above only when answering any questions you receive.`
+      fromIndex = temp.length + 1
+      prompt = `${temp} ${prompt}` 
       console.log(prompt)
       setInitial(3)
     }
@@ -102,7 +104,7 @@ function App() {
 
 
     //messages.push({role:"user", content:prompt})
-    setMessages(messages=>[...messages, {role:"user", content:prompt}]);
+    setMessages(messages=>[...messages, {role:"user", content:prompt, from:fromIndex}]);
     setRespond(true)
 
     document.getElementsByName("prompt")[0].value = ""
@@ -128,7 +130,7 @@ function App() {
             
         {initialPhase()}
         {messages.map((messageRecord) => (
-            <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]}/>
+            <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]} from={messageRecord["from"]} />
         ))}
           </Container>
         </div>
