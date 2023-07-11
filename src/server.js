@@ -17,7 +17,7 @@ app.post('/api/chat', async(request, response) => {
 
     try {
         console.log(request.body)
-        const messages = request.body
+        const messages = request.body.map(({ from, ...item }) => item)
         const gptResponse = await fetch('https://api.openai.com/v1/chat/completions',{
             method:'POST',
             headers: {

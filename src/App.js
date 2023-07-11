@@ -106,7 +106,7 @@ function App() {
     //messages.push({role:"user", content:prompt})
     setMessages(messages=>[...messages, {role:"user", content:prompt, from:fromIndex}]);
     setRespond(true)
-
+    console.log(messages)
     document.getElementsByName("prompt")[0].value = ""
     // clear the message after logging it or using it
   };

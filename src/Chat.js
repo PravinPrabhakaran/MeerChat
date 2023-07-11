@@ -38,12 +38,9 @@ function Chat(props) {
         )
     }
 
-    console.log(props.userPrompt)
-
-
     return (
         <div className={messageClass}>
-            <h1 style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{person} {props.userPrompt}</h1>
+            <h1 style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{person} {props.userPrompt.slice(props.from, props.userPrompt.length)}</h1>
         </div>
     )
 }
