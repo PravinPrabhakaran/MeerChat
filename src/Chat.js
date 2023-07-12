@@ -30,7 +30,9 @@ function Chat(props) {
                 <h1 style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{person} </h1>
                 {(props.userPrompt).map((section, index) => (
                   <span key={index}>
-                    <a href="#" onClick={returnSection(index)} style= {{ fontSize: '24px', textAlign: 'left' , paddingLeft: '1em' }} >{section.fileName.slice(0,-4)}</a>
+                    <button onClick={returnSection(index)} style={{ fontSize: '24px', textAlign: 'left', paddingLeft: '1em', background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+                        {section.fileName.slice(0,-4)}
+                    </button>
                     <br></br>
                   </span>
                 ))}
