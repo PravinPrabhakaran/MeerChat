@@ -13,7 +13,8 @@ function App() {
   var [sections, setSections] = useState([]);
   var [currentContext, setCurrentContext] = useState(-1);
   const [systemMessages, setSystemMessages] = useState(["Enter the name of a provider"]);
-
+  var [loading, setLoading]  = useState(false)
+  var [loadingMessage, setLoadMsg]  = useState("Preparing your response")
 
   useEffect(()=> {
     if (respond === true) {
@@ -21,6 +22,29 @@ function App() {
       setRespond(false)
     }
   }, [respond])
+
+  useEffect(() => {
+    let intervalId;
+  
+    if (loading) {
+      intervalId = setInterval(() => {
+        setLoadMsg((prevLoadMsg) => {
+          if (prevLoadMsg.length === 26) {
+            return "Preparing your response";
+          } else {
+            return prevLoadMsg + ".";
+          }
+        });
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
+    }
+  
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [loading]);
+
 
   var updateSectionContext = (index) => {
     setCurrentContext(index)
@@ -40,6 +64,7 @@ function App() {
 
 
   const gptResponse = async () => {
+    setLoading(true);
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -62,10 +87,14 @@ function App() {
 
     }
   
-  catch (error) {
-    console.error(error)
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      setLoading(false);
+    }   
+
   }
-  }   
 
 
   const submitPrompt = () => {
@@ -133,6 +162,10 @@ function App() {
         {messages.map((messageRecord, index) => (
           <Chat key={index} userPrompt={messageRecord["content"]} user={messageRecord["role"]} from={messageRecord["from"]} />
         ))}
+
+        {loading ? (
+          <Chat userPrompt={loadingMessage} user={"assistant"}/>
+        ) : null}
 
           </Container>
         </div>

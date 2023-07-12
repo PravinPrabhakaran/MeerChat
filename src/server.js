@@ -49,7 +49,7 @@ app.post('/api/chat', async(request, response) => {
                 ...messages.slice(0, i),
                 {
                     "role": "system",
-                    "content": "Be a helpful assistant that listens to the user"
+                    "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
     //                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
                 },
                 ...messages.slice(i)
