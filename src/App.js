@@ -3,8 +3,6 @@ import Chat from './Chat'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import SergeiImage from './sergei.png';
-import AlekImage from './alek.png';
 
 function App() {
 
@@ -17,7 +15,7 @@ function App() {
 
 
   useEffect(()=> {
-    if (respond == true) {
+    if (respond === true) {
       gptResponse()
       setRespond(false)
     }
@@ -32,7 +30,7 @@ function App() {
 
   const initialPhase = () => {
     
-    if (initial == 1) {
+    if (initial === 1) {
       return (
         <Chat userPrompt={sections} user={"system"} setContext={updateSectionContext}/>
       )
@@ -76,7 +74,7 @@ function App() {
       return;
     }
 
-    if (initial == 0) {
+    if (initial === 0) {
       fetch('/api/files/' + prompt)
         .then(response => response.json())
         .then(data => {
@@ -90,10 +88,10 @@ function App() {
         });
       return
     }
-    else if (initial == 1) {
+    else if (initial === 1) {
       return
     }
-    else if (initial == 2) {
+    else if (initial === 2) {
       var temp = `${sections[currentContext].content}. Use the information provided above only when answering any questions you receive.`
       fromIndex = temp.length + 1
       prompt = `${temp} ${prompt}` 
@@ -124,22 +122,31 @@ function App() {
       </div>
         <div className="messages-container">
           <Container>
-        {systemMessages.map((systemMsg) => (
-          <Chat userPrompt={systemMsg} user={"assistant"}/>
-        ))}
+          {systemMessages.map((systemMsg, index) => (
+            <Chat key={index} userPrompt={systemMsg} user={"assistant"}/>
+          ))}
+
             
         {initialPhase()}
-        {messages.map((messageRecord) => (
-            <Chat userPrompt={messageRecord["content"]} user={messageRecord["role"]} from={messageRecord["from"]} />
+        {messages.map((messageRecord, index) => (
+          <Chat key={index} userPrompt={messageRecord["content"]} user={messageRecord["role"]} from={messageRecord["from"]} />
         ))}
+
           </Container>
         </div>
       <div className="message-input">
   <Form>
-    <Row noGutters className="input-row"> 
+    <Row className="input-row"> 
       <Col></Col>
       <Col xs={6}>
-        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off"/>
+        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+          e.preventDefault();
+          submitPrompt();
+          document.getElementsByName("prompt")[0].value = ""
+        }
+  }}/>
       </Col>
       <Col xs="auto">
         <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
@@ -151,13 +158,7 @@ function App() {
     </Container>
   );
 
- 
-  
 
 }
-
-
-
-
 
 export default App;

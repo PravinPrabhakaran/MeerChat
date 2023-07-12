@@ -82,10 +82,6 @@ app.listen(port, ()=> {
 
 
 
-
-
-
-
 app.get('/api/chat', (req, res) => {
     res.send('Server is reachable!');
   });
