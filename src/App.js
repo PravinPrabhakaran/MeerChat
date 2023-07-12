@@ -21,6 +21,7 @@ function App() {
       gptResponse()
       setRespond(false)
     }
+    // eslint-disable-next-line
   }, [respond])
 
   useEffect(() => {
@@ -174,7 +175,7 @@ function App() {
     <Row className="input-row"> 
       <Col></Col>
       <Col xs={6}>
-        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
+        <Form.Control className="form-control-lg" name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
           e.preventDefault();
