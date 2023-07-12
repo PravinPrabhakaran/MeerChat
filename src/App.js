@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+
 function App() {
 
   const [messages, setMessages]  = useState([]);
@@ -103,6 +104,7 @@ function App() {
 
     //messages.push({role:"user", content:prompt})
     setMessages(messages=>[...messages, {role:"user", content:prompt, from:fromIndex}]);
+    
     setRespond(true)
     console.log(messages)
     document.getElementsByName("prompt")[0].value = ""

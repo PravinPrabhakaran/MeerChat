@@ -12,19 +12,45 @@ const api_key = "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"
 //Parses incoming JSON 
 app.use(express.json());
 
+
+function cleanInput(message) {
+  try {
+    const blacklistedWords = fs.readFileSync('./blacklistedWords.txt', 'utf8').split("\n");
+
+    blacklistedWords.forEach((blacklistedWord)=> {
+        const wordRegex = new RegExp(`\\b${blacklistedWord}\\b`, 'gi');
+        message = message.replace(wordRegex, '*'.repeat(blacklistedWord.length));
+    })
+    return message;
+
+  } catch (error) {
+    console.error('Error reading text file:', error);
+    return '';
+  }
+}
+
+
+
 //Send message
 app.post('/api/chat', async(request, response) => {
 
     try {
-        console.log(request.body)
-        var messages = request.body.map(({ from, ...item }) => item)
+        
+        var messages = request.body.map(({ from, content, ...item }) => { 
+            return {
+            ...item,
+            role:item.role,
+            content:cleanInput(content)
+            };
+        });
+        console.log(messages)
         for (let i=0; i<messages.length; i+=2) {
             messages = [
                 ...messages.slice(0, i),
                 {
                     "role": "system",
-                    "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
-    //                        "content": "You are a helpful assistant that helps users understand their insurance policies and must not stray from the topic."
+                    "content": "Be a helpful assistant that listens to the user"
+    //                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
                 },
                 ...messages.slice(i)
 
