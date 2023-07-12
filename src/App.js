@@ -139,7 +139,14 @@ function App() {
     <Row className="input-row"> 
       <Col></Col>
       <Col xs={6}>
-        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off"/>
+        <Form.Control name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+          e.preventDefault();
+          submitPrompt();
+          document.getElementsByName("prompt")[0].value = ""
+        }
+  }}/>
       </Col>
       <Col xs="auto">
         <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
@@ -152,9 +159,7 @@ function App() {
   );
 
  
-  
 
 }
-
 
 export default App;
