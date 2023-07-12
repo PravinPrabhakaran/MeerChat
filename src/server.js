@@ -29,7 +29,7 @@ app.post('/api/chat', async(request, response) => {
                 messages:[
                     {
                         "role": "system",
-                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only. Do not go off topic."
+                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic."
 //                        "content": "You are a helpful assistant that helps users understand their insurance policies and must not stray from the topic."
                     },
                     ...messages
