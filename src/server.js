@@ -17,7 +17,19 @@ app.post('/api/chat', async(request, response) => {
 
     try {
         console.log(request.body)
-        const messages = request.body.map(({ from, ...item }) => item)
+        var messages = request.body.map(({ from, ...item }) => item)
+        for (let i=0; i<messages.length; i+=2) {
+            messages = [
+                ...messages.slice(0, i),
+                {
+                    "role": "system",
+                    "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
+    //                        "content": "You are a helpful assistant that helps users understand their insurance policies and must not stray from the topic."
+                },
+                ...messages.slice(i)
+
+            ]
+        }        
         const gptResponse = await fetch('https://api.openai.com/v1/chat/completions',{
             method:'POST',
             headers: {
@@ -29,7 +41,7 @@ app.post('/api/chat', async(request, response) => {
                 messages:[
                     {
                         "role": "system",
-                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic."
+                        "content": "You will be given a section of an insurance policy and must help users with questions they have about it. Keep an agent tone and do not give advice, be factual and stick to making the policy clearer only and do not stray from the topic. Only discuss aspects of the insurance policy"
 //                        "content": "You are a helpful assistant that helps users understand their insurance policies and must not stray from the topic."
                     },
                     ...messages
