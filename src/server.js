@@ -21,6 +21,10 @@ function cleanInput(message) {
         const wordRegex = new RegExp(`\\b${blacklistedWord}\\b`, 'gi');
         message = message.replace(wordRegex, '*'.repeat(blacklistedWord.length));
     })
+
+    const numberRegex = /\b\d{10,}\b/g;
+    message = message.replace(numberRegex, (match) => '*'.repeat(match.length));
+
     return message;
 
   } catch (error) {
