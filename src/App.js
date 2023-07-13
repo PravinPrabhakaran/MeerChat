@@ -146,7 +146,9 @@ function App() {
   return (
     <Container>
       <Row>
-        <h1>CTM-GPT</h1>
+        <h1 id="title">
+          Meerchat
+        </h1>
       </Row>
       <div className="images-container">
         {/* <img src={SergeiImage} alt="Sergei" className="image" />
