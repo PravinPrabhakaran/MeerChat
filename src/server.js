@@ -80,6 +80,7 @@ app.post('/api/chat', async(request, response) => {
             })
         })
     const data = await gptResponse.json();
+    console.log(data)
     const reply = data.choices[0].message.content;
 
     
