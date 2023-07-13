@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #FAD9D3;
+  background-color: #ffffff;
 }
 
 .App-logo {
@@ -23,7 +23,7 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #7fbcdf;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@ body {
 
 .message-input {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   max-width: 800px; 
   width: 100%;
   margin-left: auto;
@@ -43,7 +43,7 @@ body {
   left: 0;
   right: 0;
   padding: 10px;
-  background-color: #FAD9D3;
+  background-color: #ffffff;
 }
   
 
@@ -57,7 +57,7 @@ body {
 
 .messages-container {
   padding-bottom: 100px;
-  height: calc(85vh);
+  height: calc(80vh);
   overflow-y: auto;
   border: 1px solid #000;
   box-shadow: 2px 2px 2px #888888;
