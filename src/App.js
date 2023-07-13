@@ -174,7 +174,7 @@ function App() {
   <Form>
     <Row className="input-row"> 
       <Col></Col>
-      <Col xs={6}>
+      <Col xs={10}>
         <Form.Control className="form-control-lg" name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
@@ -193,7 +193,6 @@ function App() {
 </div>
     </Container>
   );
-
 
 }
 
