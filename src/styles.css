@@ -1,0 +1,18 @@
+
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    height: 100%;
+}
+
+.main-view {
+    height: 100%;
+}
+
+.chatbot {
+    height: 100%;
+}

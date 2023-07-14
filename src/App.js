@@ -175,7 +175,6 @@ function App() {
       <div className="message-input">
   <Form>
     <Row className="input-row"> 
-      <Col></Col>
       <Col xs={10}>
         <Form.Control className="form-control-lg" name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
         onKeyPress={(e) => {
@@ -185,11 +184,12 @@ function App() {
           document.getElementsByName("prompt")[0].value = ""
         }
   }}/>
+
       </Col>
-      <Col xs="auto">
+      <Col>
+
         <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
-      </Col>
-      <Col></Col>
+      </Col>   
     </Row>
   </Form>
 </div>

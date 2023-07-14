@@ -34,26 +34,14 @@ body {
 }
 
 .message-input {
-  position: fixed;
-  bottom: 10px;
-  max-width: 800px; 
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  background-color: #ffffff;
+  justify-content: center;
+
 }
   
-
-.input-row {
-  margin-right: 0;
-  margin-left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.textInput {
+  padding-right: 110%;
 }
+
 
 .messages-container {
   padding-bottom: 100px;
