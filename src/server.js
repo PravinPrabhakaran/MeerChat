@@ -76,7 +76,7 @@ app.post('/api/chat', async(request, response) => {
                     },
                     ...messages
                 ],
-                max_tokens: 100 //Determines response length
+                max_tokens: 250 //Determines response length
             })
         })
     const data = await gptResponse.json();
@@ -93,27 +93,34 @@ app.post('/api/chat', async(request, response) => {
 });
 
 app.get('/api/files/:name', (req, res) => {
-    const { name } = req.params;
-    const folderPath = path.join(__dirname, 'policies', name);
-  
-    fs.readdir(folderPath, (err, files) => {
+  const { name } = req.params;
+  const folderPath = path.join(__dirname, 'policies', name);
+
+  fs.access(folderPath, fs.constants.F_OK, (err) => {
       if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to read folder' });
+          console.error(err);
+          return res.status(404).json({ error: 'Folder does not exist' });
       }
-  
-      const textFiles = files.filter(file => path.extname(file) === '.txt');
-      const fileData = [];
-  
-      textFiles.forEach(file => {
-        const filePath = path.join(folderPath, file);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        fileData.push({ fileName: file, content: fileContent });
+
+      fs.readdir(folderPath, (err, files) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).json({ error: 'Failed to read folder' });
+          }
+
+          const textFiles = files.filter(file => path.extname(file) === '.txt');
+          const fileData = [];
+
+          textFiles.forEach(file => {
+              const filePath = path.join(folderPath, file);
+              const fileContent = fs.readFileSync(filePath, 'utf-8');
+              fileData.push({ fileName: file, content: fileContent });
+          });
+
+          res.json({ files: fileData });
       });
-  
-      res.json({ files: fileData });
-    });
   });
+});
 
 
 

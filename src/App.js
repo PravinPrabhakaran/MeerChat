@@ -8,13 +8,13 @@ import './App.css';
 function App() {
 
   const [messages, setMessages]  = useState([]);
-  var [initial, setInitial] = useState(0)
-  var [respond, setRespond] = useState(false)
-  var [sections, setSections] = useState([]);
-  var [currentContext, setCurrentContext] = useState(-1);
+  const [initial, setInitial] = useState(0)
+  const [respond, setRespond] = useState(false)
+  const [sections, setSections] = useState([]);
+  const [currentContext, setCurrentContext] = useState(-1);
   const [systemMessages, setSystemMessages] = useState(["Enter the name of a provider"]);
-  var [loading, setLoading]  = useState(false)
-  var [loadingMessage, setLoadMsg]  = useState("Preparing your response")
+  const [loading, setLoading]  = useState(false)
+  const [loadingMessage, setLoadMsg]  = useState("Preparing your response")
 
   useEffect(()=> {
     if (respond === true) {
@@ -97,17 +97,28 @@ function App() {
 
   }
 
+  const goBack = () => {
+    setInitial(0)
+    setSystemMessages(["Enter the name of a provider"]);
+    setMessages([])
+  }
 
   const submitPrompt = () => {
     var prompt = document.getElementsByName("prompt")[0].value 
     var fromIndex = 0
     if (prompt === '') {
+
       return;
     }
 
     if (initial === 0) {
       fetch('/api/files/' + prompt)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
           setInitial(1)
           setSections(data.files)
@@ -119,6 +130,7 @@ function App() {
         });
       return
     }
+    
     else if (initial === 1) {
       return
     }
@@ -189,7 +201,18 @@ function App() {
       <Col xs="auto">
         <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
       </Col>
-      <Col></Col>
+      {initial > 0 ? <Button 
+    onClick={goBack} 
+    variant="secondary" 
+    type="button" 
+    style={{ marginTop: '1em', width: '5em', marginLeft: 325}}
+>
+    Return
+</Button>
+ : null }
+
+      <Col>
+      </Col>
     </Row>
   </Form>
 </div>
