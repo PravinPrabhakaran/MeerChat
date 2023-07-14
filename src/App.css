@@ -45,7 +45,7 @@ body {
 
 .messages-container {
   padding-bottom: 100px;
-  height: calc(80vh);
+  height: calc(87vh);
   overflow-y: auto;
   border: 0px solid #000;
   box-shadow: 0px 0px 0px #888888;
