@@ -1,4 +1,4 @@
-#Meerchat
+# Meerchat
 
 Using the GPT API - this bot is designed to assist CompareTheMarket customers in answering questions they have about their insurance policies. 
 
