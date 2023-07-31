@@ -7,7 +7,7 @@ const fs = require('fs');
 //Makes an instance of the express application
 const app = express();
 
-const api_key = "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"
+const api_key = "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"
 
 //Parses incoming JSON 
 app.use(express.json());
