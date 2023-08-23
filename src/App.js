@@ -175,7 +175,7 @@ function App() {
       <div className="message-input">
   <Form>
     <Row className="input-row"> 
-      <Col xs={10}>
+      <Col xs={12}>
         <Form.Control className="form-control-lg" name="prompt" type="text" placeholder="Type your message" autoComplete="off" 
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
@@ -185,11 +185,9 @@ function App() {
         }
   }}/>
 
-      </Col>
-      <Col>
-
-        <Button onClick={submitPrompt} variant="primary" type="button">Send</Button>
-      </Col>   
+        <Button id="submitButton" onClick={submitPrompt} variant="primary" type="button">Send</Button> 
+        </Col>
+    
     </Row>
   </Form>
 </div>

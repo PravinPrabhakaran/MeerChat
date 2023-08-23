@@ -3,11 +3,12 @@
 const express = require('express')
 const path = require('path');
 const fs = require('fs');
-
+const dotenv = require('dotenv').config({path:'./keys.env'})
 //Makes an instance of the express application
 const app = express();
 
-const api_key = "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"
+const api_key = process.env.GPT_KEY
+
 
 //Parses incoming JSON 
 app.use(express.json());
