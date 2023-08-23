@@ -8,7 +8,7 @@ const PDFView = () => {
     return (
       <div className="main-view">
         {/* Display the car insurance policies document here */}
-        <iframe src="https://crystalreports.blob.core.windows.net/taurus-docs-static/SOTI_IDOL_202304.pdf" width="100%" height="100%" title="PDF Viewer"></iframe>
+        <iframe src="https://www.coverwise.co.uk/Documents/UK/5/nonMed/other/2004/Platinum/6.03/ScheduleWording.pdf" width="100%" height="100%" title="PDF Viewer"></iframe>
       </div>
     );
   };

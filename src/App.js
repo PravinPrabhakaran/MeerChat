@@ -12,7 +12,7 @@ function App() {
   var [respond, setRespond] = useState(false)
   var [sections, setSections] = useState([]);
   var [currentContext, setCurrentContext] = useState(-1);
-  const [systemMessages, setSystemMessages] = useState(["Enter the name of a provider"]);
+  const [systemMessages, setSystemMessages] = useState([]);
   var [loading, setLoading]  = useState(false)
   var [loadingMessage, setLoadMsg]  = useState("Preparing your response")
 
@@ -99,14 +99,21 @@ function App() {
 
 
   const submitPrompt = () => {
-    var prompt = document.getElementsByName("prompt")[0].value 
-    var fromIndex = 0
-    if (prompt === '') {
-      return;
+    var prompt;
+    var fromIndex;
+
+    if (initial!=0) { 
+      var prompt = document.getElementsByName("prompt")[0].value 
+      fromIndex = 0;
+      if (prompt === '') {
+        return;
+      }
+      
     }
 
+
     if (initial === 0) {
-      fetch('/api/files/' + prompt)
+      fetch('/api/files/coverwise')
         .then(response => response.json())
         .then(data => {
           setInitial(1)
@@ -141,6 +148,7 @@ function App() {
     // clear the message after logging it or using it
   };
 
+  submitPrompt();
  
 
   return (
