@@ -9,3 +9,5 @@ There is no customer or private data shared and the insurance policy document is
 The bot is effective at providing objective advice in an agent-like tone. It can also remembers the conversation. A proper prototype would need to work on a better data capture method and handle errors properly.
 
 (A second branch includes a side-by-side view where the insurance policy is open in the same window, but the chatbot takes only a 1/3 of the screen width - allowing users to ask queries whilst reading the insurance policy.)
+
+Please note that you need to add in a working GPT API token.
